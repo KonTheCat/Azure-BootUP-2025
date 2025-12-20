@@ -59,7 +59,7 @@ An **Automation Account** is the container for all your automation resources.
 - **Location**: Azure region where metadata is stored
 - **Pricing**: Free tier (500 minutes/month) or pay-as-you-go
 - **Identity**: Can have system-assigned or user-assigned managed identity
-- **Run As Account**: (Classic, being deprecated) - Use managed identities instead
+- **Run As Account**: Retired September 30, 2023 - Use managed identities instead
 
 ### Creating an Automation Account
 
@@ -127,7 +127,7 @@ Runbooks are the core of Azure Automation - they contain the automation logic.
 
 ### Authentication in Runbooks
 
-**Managed Identity (Recommended):**
+**Managed Identity (Required):**
 ```powershell
 # Connect using system-assigned managed identity
 Connect-AzAccount -Identity
@@ -136,13 +136,7 @@ Connect-AzAccount -Identity
 Get-AzVM -ResourceGroupName "my-rg"
 ```
 
-**Run As Account (Deprecated):**
-```powershell
-$connection = Get-AutomationConnection -Name AzureRunAsConnection
-Connect-AzAccount -ServicePrincipal -Tenant $connection.TenantID `
-    -ApplicationId $connection.ApplicationID `
-    -CertificateThumbprint $connection.CertificateThumbprint
-```
+**Note**: Run As Accounts were retired on September 30, 2023, and are no longer available. All automation accounts must use managed identities for authentication.
 
 ### Input Parameters
 

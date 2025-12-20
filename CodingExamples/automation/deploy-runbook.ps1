@@ -40,18 +40,21 @@ New-AzAutomationRunbook `
     -Type PowerShell `
     -Description "Lists all Azure VMs and their power states"
 
-# Import the runbook content
+# Save the runbook content to a temporary file and import it
 Write-Host "Importing runbook content..." -ForegroundColor Green
+$tempFile = [System.IO.Path]::GetTempFileName()
+Set-Content -Path $tempFile -Value $runbookContent
+
 Import-AzAutomationRunbook `
     -ResourceGroupName $resourceGroupName `
     -AutomationAccountName $automationAccountName `
     -Name $runbookName `
     -Type PowerShell `
-    -Path ([System.IO.Path]::GetTempFileName()) `
+    -Path $tempFile `
     -Force
 
-# Note: In a real scenario, you would save $runbookContent to a file and import it
-# For this example, we're showing the structure
+# Clean up temporary file
+Remove-Item -Path $tempFile -Force
 
 # Publish the runbook (required before it can be run)
 Write-Host "Publishing runbook..." -ForegroundColor Green
