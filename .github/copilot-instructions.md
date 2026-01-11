@@ -67,6 +67,9 @@ Follow the pattern in `azd-basic-to-advanced.md`:
 - Verify all documentation links point to valid `learn.microsoft.com` pages
 - Use [MSFTHUB Cert Wiki](https://certs.msfthub.wiki/labs/azure/az-104/) for lab references
 - Check for deprecated content (Azure services evolve rapidly)
+- Before finalizing a new or edited Markdown file, validate links with the repo tool and review any `broken` entries:
+  - `D:/code/Azure-BootUP-2025/.venv/Scripts/python.exe tools/validate_markdown_links.py <file.md> --output tmp-link-report.json`
+  - If `summary.broken > 0`, remove or replace those links (prefer Microsoft Learn URLs).
 
 ### Writing Style
 - **Tone**: Professional, encouraging, precise, and terse (per `AGENT_INSTRUCTIONS.md`)
